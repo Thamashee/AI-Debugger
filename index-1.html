@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Debugger Pro | Ultimate Edition</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@700&family=Inter:wght@400;600;900&display=swap');
+        
+        body { background: #000; color: white; font-family: 'Inter', sans-serif; margin: 0; overflow: hidden; height: 100vh; }
+
+        .bg-main {
+            background: radial-gradient(circle at 50% 50%, #0d061a 0%, #000000 100%);
+            height: 100vh;
+            position: relative;
+        }
+
+        /* PAGE 1: FULL PREMIUM LOOK (RESTORED) */
+        .hero-title {
+            font-family: 'Syncopate', sans-serif;
+            font-size: clamp(2.5rem, 12vw, 8rem);
+            line-height: 0.85;
+            background: linear-gradient(to bottom, #ffffff 40%, #7c3aed 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            text-transform: uppercase;
+            position: relative;
+            z-index: 5;
+        }
+
+        .feature-tag {
+            font-[10px];
+            font-weight: 900;
+            letter-spacing: 0.2em;
+            color: rgba(255, 255, 255, 0.4);
+            border-left: 2px solid #7c3aed;
+            padding-left: 10px;
+            text-transform: uppercase;
+        }
+
+        /* ANIMATED BACKGROUNDS */
+        .grid-bg {
+            position: absolute; inset: 0;
+            background-image: linear-gradient(rgba(124, 58, 237, 0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(124, 58, 237, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px; z-index: 1;
+            animation: gridPulse 8s ease-in-out infinite;
+        }
+        @keyframes gridPulse { 0%, 100% { opacity: 0.4; } 50% { opacity: 0.8; } }
+
+        .shape {
+            position: absolute; border: 1px solid rgba(124, 58, 237, 0.15);
+            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+            animation: morphShapes 15s linear infinite; z-index: 1; pointer-events: none;
+        }
+        @keyframes morphShapes {
+            0% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(0deg); }
+            50% { border-radius: 50% 50% 30% 70% / 50% 70% 30% 50%; transform: rotate(180deg); }
+            100% { border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%; transform: rotate(360deg); }
+        }
+
+        /* TRANSITIONS */
+        .page-container { display: none; width: 100%; height: 100%; flex-direction: column; align-items: center; justify-content: center; position: relative; z-index: 10; }
+        .active-page { display: flex !important; animation: slideUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes slideUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* PAGE 2: CLASSIC BOXES */
+        .workflow-box {
+            position: relative;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(124, 58, 237, 0.15);
+            padding: 50px 35px;
+            border-radius: 30px;
+            flex: 1;
+            min-width: 320px;
+        }
+        .watermark-num {
+            position: absolute; top: 10px; right: 20px;
+            font-size: 6rem; font-weight: 900;
+            color: rgba(124, 58, 237, 0.12);
+            font-family: 'Syncopate', sans-serif;
+        }
+
+        .btn-glow {
+            background: linear-gradient(45deg, #7c3aed, #2563eb);
+            box-shadow: 0 10px 40px rgba(124, 58, 237, 0.3);
+            transition: 0.4s;
+        }
+        .btn-glow:hover { transform: scale(1.05); box-shadow: 0 0 60px rgba(124, 58, 237, 0.6); }
+
+        .glow-orb {
+            position: absolute; width: 800px; height: 800px;
+            background: radial-gradient(circle, rgba(124, 58, 237, 0.1) 0%, transparent 70%);
+            filter: blur(120px); z-index: 1;
+        }
+    </style>
+</head>
+<body class="bg-main overflow-hidden">
+    
+    <div class="grid-bg"></div>
+    <div class="glow-orb top-[-200px] left-[-200px]"></div>
+    <div class="glow-orb bottom-[-200px] right-[-200px]"></div>
+
+    <div class="shape w-96 h-96 top-10 right-10 opacity-20"></div>
+    <div class="shape w-64 h-64 bottom-20 left-20 opacity-10"></div>
+
+    <div id="page1" class="page-container active-page">
+        <div class="max-w-6xl w-full px-10 flex flex-col items-center">
+            <div class="w-full flex justify-between mb-16 opacity-60">
+                <div class="flex gap-8">
+                    <span class="text-[9px] font-black tracking-widest uppercase">Status: <span class="text-green-500">Online</span></span>
+                    <span class="text-[9px] font-black tracking-widest uppercase">Engine: <span class="text-purple-500">V3.5 Flash</span></span>
+                </div>
+                <div class="text-[9px] font-black tracking-widest uppercase">Kalutara, SL // 2026</div>
+            </div>
+
+            <div class="text-center">
+                <p class="text-purple-400 font-bold tracking-[1.2em] mb-6 uppercase text-[10px]">Neural Correction Interface</p>
+                <h1 class="hero-title mb-8">AI<br>DEBUGGER</h1>
+                <p class="text-gray-400 text-xl max-w-2xl mx-auto mb-16 font-medium leading-relaxed">
+                    Transforming complex code into clean, optimized logic. Powered by high-speed neural synthesis for modern development.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 w-full mb-16">
+                <div class="feature-tag">
+                    <p class="text-white text-xs mb-1">Real-time Analysis</p>
+                    <p class="text-gray-600 text-[10px]">Instant identification of logic flaws.</p>
+                </div>
+                <div class="feature-tag" style="border-color: #3b82f6;">
+                    <p class="text-white text-xs mb-1">Neural Purification</p>
+                    <p class="text-gray-600 text-[10px]">Deep-layer code optimization.</p>
+                </div>
+                <div class="feature-tag" style="border-color: #ec4899;">
+                    <p class="text-white text-xs mb-1">Zero Latency</p>
+                    <p class="text-gray-600 text-[10px]">High-speed response cycles.</p>
+                </div>
+            </div>
+
+            <button onclick="goToPage(2)" class="btn-glow text-white font-black py-7 px-28 rounded-2xl text-2xl uppercase tracking-[0.2em]">
+                INITIALIZE ENGINE
+            </button>
+        </div>
+    </div>
+
+    <div id="page2" class="page-container p-10">
+        <h2 class="text-7xl font-black tracking-tighter uppercase mb-20 text-center italic">Core <span class="text-purple-500">Workflow</span></h2>
+        <div class="flex flex-wrap justify-center gap-8 max-w-7xl w-full">
+            <div class="workflow-box">
+                <div class="watermark-num">01</div>
+                <h3 class="text-2xl font-black uppercase tracking-widest text-purple-400 mb-6">AUTHENTICATION</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Secure your connection by entering your unique OpenRouter API Key. This serves as the primary bridge.</p>
+            </div>
+            <div class="workflow-box">
+                <div class="watermark-num text-blue-500/15">02</div>
+                <h3 class="text-2xl font-black uppercase tracking-widest text-blue-400 mb-6">INTEGRATION</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Transfer your raw JavaScript into the specialized input panel. Our system scans every line.</p>
+            </div>
+            <div class="workflow-box">
+                <div class="watermark-num text-pink-500/15">03</div>
+                <h3 class="text-2xl font-black uppercase tracking-widest text-pink-400 mb-6">OPTIMIZATION</h3>
+                <p class="text-gray-400 text-sm leading-relaxed">Initiate the debugger to trigger a deep-layer refinement. Get your purified code instantly.</p>
+            </div>
+        </div>
+        <div class="mt-20 flex gap-12 items-center">
+            <button onclick="goToPage(1)" class="text-gray-600 hover:text-white transition uppercase font-bold text-xs tracking-widest">Return</button>
+            <button onclick="goToPage(3)" class="btn-glow py-5 px-16 rounded-2xl font-black text-xl uppercase">Enter Workspace</button>
+        </div>
+    </div>
+
+    <div id="page3" class="page-container p-6 md:p-10 justify-start">
+        <div class="max-w-7xl mx-auto w-full flex flex-col h-full overflow-hidden">
+            <header class="flex justify-between items-center mb-10 pt-2">
+                <h1 class="text-2xl font-black italic tracking-tighter uppercase">AI_DEBUGGER <span class="text-purple-500">PRO</span></h1>
+                <button onclick="goToPage(2)" class="text-[10px] font-bold border border-white/10 px-6 py-2 rounded-full hover:bg-white/10 transition uppercase">Back to Guide</button>
+            </header>
+
+            <div class="bg-white/5 border border-white/10 p-6 rounded-[2rem] mb-8 flex items-center gap-6">
+                <span class="text-[10px] font-black text-purple-500 uppercase tracking-widest ml-4">AUTH_TOKEN:</span>
+                <input type="password" id="apiKey" class="flex-grow bg-transparent border-none outline-none text-purple-200 font-mono text-xl tracking-[0.4em]" placeholder="••••••••••••••••••••">
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-10 flex-grow mb-10 overflow-hidden min-h-0">
+                <div class="flex flex-col bg-black/50 border border-white/10 rounded-[2.5rem] overflow-hidden">
+                    <div class="bg-white/5 px-8 py-3 text-[10px] font-black text-blue-400 tracking-[0.4em] uppercase border-b border-white/5">Source Input</div>
+                    <textarea id="prompt" class="flex-grow bg-transparent p-10 font-mono text-[1.1rem] outline-none resize-none text-gray-300" placeholder="// Paste code here..."></textarea>
+                </div>
+                <div class="flex flex-col bg-black/50 border border-purple-500/20 rounded-[2.5rem] overflow-hidden">
+                    <div class="bg-white/5 px-8 py-3 text-[10px] font-black text-purple-400 tracking-[0.4em] uppercase border-b border-white/5 flex justify-between items-center">
+                        <span>Optimized Result</span>
+                        <button id="copyBtn" class="bg-purple-600 text-white px-6 py-1 rounded-full text-[10px] font-bold">COPY</button>
+                    </div>
+                    <textarea id="response" class="flex-grow bg-transparent p-10 font-mono text-[1.1rem] text-purple-200 outline-none resize-none" readonly placeholder="// Awaiting process..."></textarea>
+                </div>
+            </div>
+
+            <div class="flex flex-col items-center pb-4">
+                <button id="sendBtn" class="btn-glow py-7 px-32 rounded-3xl font-black text-3xl active:scale-95 uppercase tracking-tighter">
+                    RUN DEBUGGER
+                </button>
+                <div id="error" class="mt-4 text-red-500 text-[10px] font-bold uppercase h-4 tracking-widest"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function goToPage(n) {
+            document.querySelectorAll('.page-container').forEach(p => p.classList.remove('active-page'));
+            document.getElementById('page' + n).classList.add('active-page');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const sendBtn = document.getElementById('sendBtn');
+            const copyBtn = document.getElementById('copyBtn');
+            const promptTextarea = document.getElementById('prompt');
+            const apiKeyInput = document.getElementById('apiKey');
+            const responseTextarea = document.getElementById('response');
+            const errorSpan = document.getElementById('error');
+
+            sendBtn.addEventListener('click', async () => {
+                const code = promptTextarea.value.trim();
+                const key = apiKeyInput.value.trim();
+                if (!code || !key) { errorSpan.textContent = "REQUIRED FIELDS MISSING."; return; }
+                errorSpan.textContent = "";
+                sendBtn.innerText = "PROCESSING...";
+                sendBtn.disabled = true;
+
+                try {
+                    const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${key}` },
+                        body: JSON.stringify({
+                            'model': 'stepfun/step-3.5-flash:free',
+                            'messages': [{ 'role': 'system', 'content': 'Fix JS errors. Return ONLY code.' }, { 'role': 'user', 'content': code }]
+                        })
+                    });
+                    const data = await res.json();
+                    responseTextarea.value = data.choices[0].message.content.trim();
+                } catch (e) { errorSpan.textContent = "CONNECTION ERROR."; } 
+                finally { sendBtn.innerText = "RUN DEBUGGER"; sendBtn.disabled = false; }
+            });
+
+            copyBtn.addEventListener('click', () => {
+                if (!responseTextarea.value) return;
+                navigator.clipboard.writeText(responseTextarea.value).then(() => {
+                    const old = copyBtn.innerText; copyBtn.innerText = "COPIED!";
+                    setTimeout(() => copyBtn.innerText = old, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
